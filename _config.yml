@@ -1,0 +1,31 @@
+# Site settings
+title: Michele Campi
+email: 215741962+MicheleCampi@users.noreply.github.com
+description: >-
+  Technical notes on mathematical optimization, MCP servers,
+  agentic services, and the operations engineering behind them.
+baseurl: ""
+url: "https://michelecampi.github.io"
+twitter_username: MicheleC54474
+github_username: MicheleCampi
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Minima theme settings
+minima:
+  skin: auto
+  social_links:
+    - { platform: github, user_url: "https://github.com/MicheleCampi" }
+    - { platform: twitter, user_url: "https://twitter.com/MicheleC54474" }
+
+# Exclude from build
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
