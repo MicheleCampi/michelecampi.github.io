@@ -2,7 +2,7 @@
 title: "How I exposed OR-Tools as a production MCP server"
 author: Michele Campi
 published: true
-description: A solo builder's account of wrapping Google's OR-Tools CP-SAT solver as a dual-transport MCP server with OAuth 2.1, rate limiting, and agent-native discovery. Includes the debugging saga that got it working.
+description: How operations research methods solve scheduling problems that ERP and APS vendors charge mid-six-figure annual licenses to address. Written from seven years inside cosmetic contract manufacturing in northern Italy. Technical postmortem on wrapping Google's OR-Tools as an MCP server — for readers who want the architecture and the integration trade-offs.
 tags: [mcp, ortools, oauth, fastapi]
 ---
 

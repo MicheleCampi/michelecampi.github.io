@@ -1,5 +1,8 @@
 ---
 title: "Exposing a math solver as Circle Nanopayments: what I learned forking arc-nanopayments"
+author: Michele Campi
+published: true
+description: Why autonomous AI agents will start buying optimization decisions the way SaaS platforms today buy API calls — and what it means for the next generation of B2B integrations. Three weeks at the intersection of operations research and machine-to-machine commerce, with the technical detail of forking Circle's reference implementation.
 date: 2026-04-24
 tags: [x402, circle, nanopayments, agent-economy, nextjs, or-tools]
 ---
