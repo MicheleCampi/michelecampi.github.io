@@ -2,12 +2,12 @@
 title: "Three Production Scheduling Failures I've Seen, and the Math That Would Have Caught Them"
 author: Michele Campi
 published: true
-description: "Three chronic scheduling failures I watched repeat across cosmetic contract manufacturers in seven years of operations controlling. Each had the same shape: a visible symptom in the dashboards, a hidden cause nobody was tracking, a management reaction that addressed the symptom, and an operations research method that would have caught the cause. Notes for plant managers and operations directors who suspect their planning is leaving money on the floor."
+description: "Three chronic scheduling failures I watched repeat across mid-market manufacturers in seven years of operations controlling. Each had the same shape: a visible symptom in the dashboards, a hidden cause nobody was tracking, a management reaction that addressed the symptom, and an operations research method that would have caught the cause. Notes for plant managers and operations directors who suspect their planning is leaving money on the floor."
 date: 2026-04-26
 tags: [scheduling, or-tools, manufacturing, optimization]
 ---
 
-In seven years of operations controlling inside cosmetic contract manufacturers, I watched the same scheduling failures repeat across plants, across product lines, across teams. Different people, different machines, identical patterns.
+In seven years of operations controlling inside mid-market manufacturers, I watched the same scheduling failures repeat across plants, across product lines, across teams. Different people, different machines, identical patterns.
 
 The interesting thing about chronic scheduling failures isn't that they happen. It's that everyone in the plant knows they happen, and almost nobody knows why. Management explains them away with operational folklore — *"that machine is always troubled," "Friday afternoons are bad," "this client is impossible."* Engineers blame planners. Planners blame the ERP. The ERP blames the master data. Nothing changes.
 
@@ -55,7 +55,7 @@ What I never saw was anyone treating the changeover as what it actually is: **a 
 
 For a typical contract manufacturer running roughly five format changes per month per machine, with two hours of avoidable extra time per change and an industrial cost of line idleness in the €80–€120 per hour range, the financial impact of leaving this unsolved tends to land somewhere between €40K and €60K per year per plant. Not catastrophic. Not invisible either. The kind of number that, once quantified, makes the conversation about "should we invest in optimization" finally productive.
 
-The other piece of math — sequence-dependent setup times — addresses what comes before. Two consecutive products with similar fragrances need a brief sanitization. Two products with very different formulas need a deep cleaning that takes triple the time. Treating all sanitizations as uniform in the schedule is one of the most expensive simplifications I've seen in cosmetic manufacturing. CP-SAT handles asymmetric setup times natively. Spreadsheets don't.
+The other piece of math — sequence-dependent setup times — addresses what comes before. Two consecutive products with similar fragrances need a brief sanitization. Two products with very different formulas need a deep cleaning that takes triple the time. Treating all sanitizations as uniform in the schedule is one of the most expensive simplifications I've seen in consumer goods manufacturing. CP-SAT handles asymmetric setup times natively. Spreadsheets don't.
 
 ---
 

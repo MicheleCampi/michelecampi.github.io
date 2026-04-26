@@ -1,5 +1,5 @@
 ---
-title: "Why your AI assistant can't actually plan your factory: a real test with a German SME manufacturer"
+title: "Why your AI assistant can't actually plan your factory"
 author: Michele Campi
 published: true
 description: I gave a synthetic but realistic factory scheduling problem — fifteen machines, six automotive orders, real constraints — to a frontier AI assistant and to a constraint-programming solver. The assistant produced confident answers that were measurably suboptimal. The solver produced the proven optimum in milliseconds. The gap is structural, not incremental, and it has direct cost implications for any manufacturer considering AI-powered planning tools.

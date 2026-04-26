@@ -2,7 +2,7 @@
 title: "How I exposed OR-Tools as a production MCP server"
 author: Michele Campi
 published: true
-description: How operations research methods solve scheduling problems that ERP and APS vendors charge mid-six-figure annual licenses to address. Written from seven years inside cosmetic contract manufacturing in northern Italy. Technical postmortem on wrapping Google's OR-Tools as an MCP server — for readers who want the architecture and the integration trade-offs.
+description: How operations research methods solve scheduling problems that ERP and APS vendors charge mid-six-figure annual licenses to address. Written from seven years inside mid-market manufacturing in northern Italy. Technical postmortem on wrapping Google's OR-Tools as an MCP server — for readers who want the architecture and the integration trade-offs.
 tags: [mcp, ortools, oauth, fastapi]
 ---
 
@@ -18,7 +18,7 @@ So I spent the last two months wrapping it as a production MCP server that auton
 
 ## The problem I came from
 
-I'm not a "tech guy" by origin. I've spent seven years as an operations controller in cosmetic contract manufacturing in northern Italy — the kind of work where you watch production managers rebuild weekly schedules by hand every Monday morning because the MES system doesn't do real scheduling, it only tracks events after the fact.
+I'm not a "tech guy" by origin. I've spent seven years as an operations controller in mid-market manufacturing in northern Italy — the kind of work where you watch production managers rebuild weekly schedules by hand every Monday morning because the MES system doesn't do real scheduling, it only tracks events after the fact.
 
 The scheduling problems I saw were always the same shape. Five to fifteen machines. Ten to twenty active jobs with different customer deadlines and setup dependencies. A plant manager with an Excel sheet and twenty years of gut feeling. When something went wrong — a line didn't start, a machine broke down — the replan was done by eye, because formally recalculating would take hours. The cost of a late order translates into penalties, lost customer goodwill, and sometimes lost customers.
 
