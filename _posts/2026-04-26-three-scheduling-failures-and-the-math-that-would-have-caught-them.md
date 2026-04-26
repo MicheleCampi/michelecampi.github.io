@@ -2,7 +2,7 @@
 title: "Three Production Scheduling Failures I've Seen, and the Math That Would Have Caught Them"
 author: Michele Campi
 published: true
-description: Three chronic scheduling failures I watched repeat across cosmetic contract manufacturers in seven years of operations controlling. Each had the same shape: a visible symptom in the dashboards, a hidden cause nobody was tracking, a management reaction that addressed the symptom, and an operations research method that would have caught the cause. Notes for plant managers and operations directors who suspect their planning is leaving money on the floor.
+description: "Three chronic scheduling failures I watched repeat across cosmetic contract manufacturers in seven years of operations controlling. Each had the same shape: a visible symptom in the dashboards, a hidden cause nobody was tracking, a management reaction that addressed the symptom, and an operations research method that would have caught the cause. Notes for plant managers and operations directors who suspect their planning is leaving money on the floor."
 date: 2026-04-26
 tags: [scheduling, or-tools, manufacturing, optimization]
 ---
