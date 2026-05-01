@@ -1,13 +1,26 @@
 # Site settings
 title: Michele Campi
-email: 215741962+MicheleCampi@users.noreply.github.com
+email: michele.campi@outlook.com
 description: >-
   Technical notes on mathematical optimization, MCP servers,
-  agentic services, and the operations engineering behind them.
+  and operations engineering — building decision-grade infrastructure
+  for AI-native operations.
 baseurl: ""
 url: "https://michelecampi.github.io"
+lang: en-US
 twitter_username: MicheleC54474
 github_username: MicheleCampi
+
+# Author info (used by jekyll-seo-tag)
+author:
+  name: Michele Campi
+  email: michele.campi@outlook.com
+  twitter: MicheleC54474
+
+# Twitter Cards configuration
+twitter:
+  username: MicheleC54474
+  card: summary
 
 # Build settings
 theme: minima
