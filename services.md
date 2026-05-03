@@ -64,6 +64,8 @@ I built and operate **OptimEngine**, a production-grade mathematical optimizatio
 
 It's live, it's deployed, it returns optimal schedules in milliseconds on realistic problems, and it's the tooling I use when client work calls for the same kind of math.
 
+A read-only [public Grafana dashboard](https://optimengine.grafana.net/public-dashboards/21137ba340fc4b6e917a4b108db3e109) shows the service's live observability — solver invocations, status mix across optimization outcomes, and p95 latency over the last 24 hours. No login required.
+
 Concretely:
 
 - **11 mathematical solvers** covering the most common operations decision problems
