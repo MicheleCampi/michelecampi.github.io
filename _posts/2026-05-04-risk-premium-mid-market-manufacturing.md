@@ -7,8 +7,6 @@ date: 2026-05-04
 tags: [or-tools, scheduling, manufacturing, optimization, risk-management, monte-carlo, cvar]
 ---
 
-# How fragile is your weekly plan? A risk-premium framework for mid-market manufacturers
-
 **TL;DR.** A deterministic schedule promises a single number — say, 161 hours of plant time. That number assumes every task takes exactly as long as the planner wrote down. Real plants don't behave that way. Using Monte Carlo with CVaR 95% on a real OR-Tools schedule for a mid-market Italian contract packager, I show that doubling the input volatility (±20% → ±35% on filling tasks) raises the weekly *risk premium* from **4.2% to 7.2%** — not the catastrophic explosion most planners fear. The plan is structurally robust. The framework reproducible. The calculation is a single API call. *2,300 words, 8 minutes.*
 
 ---

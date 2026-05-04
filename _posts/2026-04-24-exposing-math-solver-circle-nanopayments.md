@@ -7,8 +7,6 @@ date: 2026-04-24
 tags: [x402, circle, nanopayments, agent-economy, nextjs, or-tools]
 ---
 
-# Exposing a math solver as Circle Nanopayments: what I learned forking arc-nanopayments
-
 I spent the last three weeks wiring a constraint-programming solver into Circle's Nanopayments stack on Arc testnet. The result is [`optim-arc-v3`](https://github.com/MicheleCampi/optim-arc-v3), a Next.js gateway that exposes ten optimization endpoints — scheduling, routing, Pareto frontiers, stochastic CVaR analysis — each behind a `402 Payment Required` response that accepts gasless USDC micropayments.
 
 It's live at [optim-arc-v3.vercel.app](https://optim-arc-v3.vercel.app). You can hit any endpoint with `curl` right now and get back a valid x402 v2 payment challenge.

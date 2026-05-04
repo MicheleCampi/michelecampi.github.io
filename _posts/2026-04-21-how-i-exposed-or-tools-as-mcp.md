@@ -6,8 +6,6 @@ description: How operations research methods solve scheduling problems that ERP 
 tags: [mcp, ortools, oauth, fastapi]
 ---
 
-# How I exposed OR-Tools as a production MCP server
-
 In April 2026, the tooling gap is starting to show.
 
 AI agents can generate text, call APIs, navigate browsers, write and execute code. They can do a lot. What they can't do reliably is decide how to schedule ten manufacturing jobs across three machines so that lateness is minimized. Ask a language model to do it and you'll watch it reason for forty-five seconds, then return a plausible-looking sequence that's noticeably worse than optimal. Or worse, confidently wrong.
@@ -86,10 +84,10 @@ MCP supports multiple transports. The older one is Server-Sent Events (SSE): lon
 OptimEngine deploys both.
 
 ```python
-# Open, rate-limited, no auth — for demos and compat
+### Open, rate-limited, no auth — for demos and compat
 mcp.mount_sse(mount_path="/mcp")
 
-# Streamable HTTP + OAuth 2.1 — for production agents
+### Streamable HTTP + OAuth 2.1 — for production agents
 if _SCALEKIT_CONFIGURED:
     mcp.mount_http(mount_path="/mcp/v2")
 ```

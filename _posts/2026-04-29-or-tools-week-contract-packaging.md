@@ -7,8 +7,6 @@ date: 2026-04-29
 tags: [or-tools, scheduling, manufacturing, optimization, contract-packaging]
 ---
 
-# What an OR-Tools solver finds in a week of contract packaging — and what the planner usually misses
-
 Most arguments in favor of optimization software focus on the obvious benefit: a solver finds a better schedule than a human planner, faster. That part is true and uninteresting. The interesting part is what the solver shows you about your own operation that you couldn't see before.
 
 This article walks through one synthetic but realistic week at *Lombarda Confezionamenti SRL*, a fictional contract packager in northern Italy. The company is fictional; the operational pattern is one I've seen repeat across European mid-market contract packagers in seven years of operations work. The numerical input is deliberately ordinary. The numerical output — the schedule, the metrics, the bottleneck analysis — is what OptimEngine actually returned when I fed the input into the solver. No invented numbers.

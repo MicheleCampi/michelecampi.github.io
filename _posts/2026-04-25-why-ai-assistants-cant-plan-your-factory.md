@@ -7,8 +7,6 @@ date: 2026-04-25
 tags: [optimization, manufacturing, industry-4-0, or-tools, ai-agents, scheduling]
 ---
 
-# Why your AI assistant can't actually plan your factory: a real test with a German SME manufacturer
-
 Last week I sat down with a synthetic but realistic problem. **MetallbauTech GmbH**, a 45-person precision manufacturer in the Stuttgart area, has fifteen CNC machines and six automotive orders to deliver this week. Mix of brake calipers for BMW, transmission gears for Porsche (with a yield-rate constraint, because precision), Audi steering parts, a Tesla rush order due in 15 hours, MAN truck components, and a standard machining batch.
 
 A Monday-morning question for the production manager: what's the optimal weekly plan?
