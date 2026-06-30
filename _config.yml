@@ -2,9 +2,9 @@
 title: Michele Campi
 email: michele.campi@outlook.com
 description: >-
-  Technical notes on mathematical optimization, MCP servers,
-  and operations engineering — building decision-grade infrastructure
-  for AI-native operations.
+  AI Infrastructure Engineer — Rust, Kubernetes operators, IaC/GitOps,
+  observability, with depth in LLM inference. Notes on building and
+  measuring infrastructure that's reproducible and validated on real GPUs.
 baseurl: ""
 url: "https://michelecampi.github.io"
 lang: en-US
