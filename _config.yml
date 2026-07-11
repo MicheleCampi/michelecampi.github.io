@@ -12,10 +12,9 @@ twitter_username: MicheleC54474
 github_username: MicheleCampi
 
 # Author info (used by jekyll-seo-tag)
-author:
-  name: Michele Campi
-  email: michele.campi@outlook.com
-  twitter: MicheleC54474
+author: Michele Campi
+email: michele.campi@outlook.com
+twitter_username: MicheleC54474
 
 # Twitter Cards configuration
 twitter:
