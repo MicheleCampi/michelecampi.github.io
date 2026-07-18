@@ -40,7 +40,7 @@ Read as a design statement: remote prefill is an optimization; decode is the con
 
 ## Where this is heading
 
-The P/D handler I read is itself being generalized: there is active work upstream toward a handler with three roles — prefill, decode, and a third encode role (P/D/E). The per-request, decode-anchored structure carries over; the role set widens. I'm flagging it as work-in-progress rather than describing it as settled, because it isn't.
+The P/D handler I read is already being superseded: on current main it is marked deprecated in favor of a merged, unified `disagg-profile-handler` with three roles — prefill, decode, and encode — each optional split gated by its own decider. What carries over verbatim is the structure this post is about: decode is picked first, every decider runs against the already-selected decode endpoint, and a failed decode pick still terminates the request. The role set widened; the decode-anchored, per-request shape didn't.
 
 ## What I did with this
 
@@ -51,3 +51,5 @@ Reading this code reshaped the orchestration design of my own operator. [ADR-000
 Disaggregation in llm-d is not a topology you deploy. It's a decision the scheduler makes per request, anchored on the decode worker, gated by that worker's actual cache state, and designed to fail *toward* aggregated serving rather than away from it. If you're evaluating disaggregated inference, the question to ask your stack is not "does it support P/D" but "who decides, when, and what happens when prefill dies".
 
 Links: [the 1P1D profiling experiment](/observability/systems-engineering/llm-inference/2026/07/18/vllm-disagg-profiling-1p1d.html) · [the Dynamo experiment](/observability/systems-engineering/llm-inference/2026/06/27/dynamo-kv-router-saturation.html) · [`llm-d/llm-d-router`](https://github.com/llm-d/llm-d-router) · [ADR-0006](https://github.com/MicheleCampi/vllm-coldstart-operator/blob/main/docs/adr/0006-disaggregation-aware-orchestration.md)
+
+Source claims verified against [`llm-d/llm-d-router`](https://github.com/llm-d/llm-d-router) at commit [`c82561bf`](https://github.com/llm-d/llm-d-router/commit/c82561bf).
