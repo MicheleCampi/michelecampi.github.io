@@ -2,7 +2,7 @@
 layout: post
 title: "The client measured the cost. Only the per-device view measured the trade-off."
 subtitle: "Profiling aggregated vs disaggregated LLM serving on 2×H100 — what each view could and couldn't see."
-date: 2026-07-19
+date: 2026-07-18
 categories: observability systems-engineering llm-inference
 tags: rust llm profiling observability gpu h100 inferscope vllm disaggregation
 ---
