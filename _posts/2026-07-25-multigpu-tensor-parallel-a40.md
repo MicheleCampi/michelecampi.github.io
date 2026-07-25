@@ -171,17 +171,28 @@ There is a row I deliberately left out of that table: power. I had originally wr
 
 One more thing, and it's the one I'd have missed with a single run.
 
-Across three vLLM runs the TTFT was 22.84 ms, then 651.78 ms, then 20.71 ms. The obvious story — "the first request to a cold server is slow" — is wrong, and I want to correct it explicitly because it's the version I first wrote down.
+Across three vLLM runs the TTFT was 22.84 ms, then 651.78 ms, then 20.71 ms. The obvious story — "the first request to a cold server is slow" — is wrong, and so was the second story I told myself. The server logs settle it, and they were sitting in my own evidence archive the whole time.
 
-The 651 ms was **not** the first-ever request. The sequence was: first start after installation, 22.84 ms. Then the pod was paused overnight and vLLM restarted. First request after that restart: 651.78 ms. Second request after the restart: 20.71 ms. The expensive request is the first one after a *restart*, not the first one ever.
+Here is what they show. In both sessions, CUDA graph capture finishes during engine init, before the server accepts any traffic: `Graph capturing finished in 3 secs, took 0.63 GiB`. And `torch.compile` runs on *both* starts, at essentially the same cost — 15.93 s on the first-ever start, 16.62 s after the restart. There is no compile-cache shortcut on restart, so a graph-capture explanation has nothing left to stand on.
 
-The working hypothesis is that this is CUDA graph capture: the first-ever start pays compilation costs at engine init, while a restart against a warm on-disk compile cache skips that work but still has to re-capture graphs in memory, and something about that path defers the cost to first inference. I want to be clear that this is a hypothesis inferred from three timings, not a root cause traced through vLLM's source — I haven't read the initialisation path closely enough to assert the mechanism, and the numbers alone can't distinguish it from other first-request effects. I have a separate set of experiments on CUDA graph capture cost coming up, and that's where the question belongs.
+What both logs do record, on the first inference after each engine start, is this:
 
-What the three timings do establish, without needing the mechanism, is operational: **a benchmark that starts a server and sends one request may be measuring a startup artifact and reporting it as steady-state latency.** Which one of the three numbers you publish depends entirely on how many requests you sent and whether the process had been restarted. inferscope captured three runs in sequence and the pattern was visible. With one run it would have been a footnote on a TTFT chart, and a wrong one.
+```
+WARNING [jit_monitor.py:103] Triton kernel JIT compilation during inference:
+_compute_slot_mapping_kernel. This causes a latency spike; consider extending warmup
+```
+
+vLLM diagnoses itself. The first request after an engine start pays Triton JIT compilation of a kernel that warmup didn't cover, and vLLM's own monitor flags it as a latency spike.
+
+Which leaves the awkward part. My run labelled `cold` reports 22.84 ms — because the log shows *another* request had already hit that server minutes earlier and absorbed the JIT cost. It was never a cold measurement. The 651.78 ms run is the only one of the three where I actually profiled a first inference, and I had it filed under the wrong name for two months.
+
+So the operational point survives, sharpened: **the first request after any engine start pays a compilation cost, and a benchmark that sends one throwaway request first will never see it.** That is not a hypothetical failure mode. It is what happened to my own measurement, in my own archive, until I read the server log instead of the report.
+
+The raw reports and both server logs are in the [inferscope repo](https://github.com/MicheleCampi/inferscope/tree/main/validation-results/vllm-h100-2026-05-24), including a correction note on the summary file that got this wrong first time.
 
 ## Closing
 
-I came to this session expecting to validate that inferscope sampled four GPUs correctly. It does. I came expecting to learn whether four-way tensor parallelism scaled at 7B. It didn't, in the one sample I took — and one sample is what I'm entitled to claim. I did not come expecting to learn that my report format needed rethinking, or that a short run makes energy numbers unresolvable, or that a restart is more expensive than a cold start.
+I came to this session expecting to validate that inferscope sampled four GPUs correctly. It does. I came expecting to learn whether four-way tensor parallelism scaled at 7B. It didn't, in the one sample I took — and one sample is what I'm entitled to claim. I did not come expecting to learn that my report format needed rethinking, or that a short run makes energy numbers unresolvable, or that one of my own runs had been mislabelled cold for two months.
 
 The arc that started with a `/proc`-only profiler missing a GPU bug ends with the same profiler, against a different engine on different hardware, surfacing a startup pattern that single-shot benchmarks don't see. The data the profiler captures is fine. The question is which slice the report makes visible — and whether anyone runs the engine long enough for the interesting slice to exist at all.
 
