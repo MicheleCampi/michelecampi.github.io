@@ -31,7 +31,7 @@ Two things follow from it in practice. Experiments carry a falsification criteri
 
 ## Upstream
 
-Measuring your own code is the easy half. I contribute to the projects this work sits on: merged into [llm-d](https://github.com/llm-d/llm-d-router/pull/2037) — removing a mid-stream latency-prediction path from the inference scheduler, on an issue a maintainer had assigned to me — as well as NVIDIA AIPerf and mistral.rs. Working inside a codebase you don't own, to the standard its maintainers require, is a different skill from building your own, and the only way to demonstrate it is to do it.
+Measuring your own code is the easy half. I contribute to the projects this work sits on: four changes merged, two of them into [llm-d](https://github.com/llm-d/llm-d-router), Red Hat's inference scheduler. The first removed a mid-stream latency-prediction path on an issue a maintainer had opened, which I claimed with a plan before writing any code. The second added parity coverage between two scorers that disagree when a config is wrong — the reviewer pointed out that my own comment block described a behaviour no test exercised, which was true, so I wrote the test that pins it. The other two are NVIDIA AIPerf and mistral.rs. Working inside a codebase you don't own, to the standard its maintainers require, is a different skill from building your own, and the only way to demonstrate it is to do it.
 
 I also keep a production service running, [OptimEngine](https://optim-engine-production.up.railway.app): an OR-Tools optimisation service exposed over REST and MCP, with OpenTelemetry tracing and a public Grafana dashboard. It is where the operations background and the engineering meet.
 
