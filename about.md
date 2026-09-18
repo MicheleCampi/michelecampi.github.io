@@ -45,7 +45,7 @@ I also keep a production service running, [OptimEngine](https://optim-engine-pro
 
 ## Writing
 
-Eighteen articles since April 2026, roughly four a month — inference performance, observability, and the things measurement reveals that intuition misses. The ones I'd start with are the [trajectory cost study](/observability/systems-engineering/llm-inference/2026/08/06/agentic-trajectory-cost.html) and the [methodology post](/observability/systems-engineering/llm-inference/2026/08/16/checks-that-found-them.html).
+Nineteen articles since April 2026, roughly four a month — inference performance, observability, and the things measurement reveals that intuition misses. The ones I'd start with are the [trajectory cost study](/observability/systems-engineering/llm-inference/2026/08/06/agentic-trajectory-cost.html) and the [methodology post](/observability/systems-engineering/llm-inference/2026/08/16/checks-that-found-them.html).
 
 ## Working together
 
