@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "I built an eBPF profiler to find where vLLM cold-start spends its time. It wasn't the disk."
+title: "I built an eBPF profiler for vLLM cold start. Here is what it can and cannot see."
 date: 2026-06-15
 categories: observability systems-engineering llm-inference
 tags: rust ebpf llm vllm profiling observability gpu cold-start aya
 ---
+
+> **Correction, 15 October 2026.** This post's central claim does not hold. The traced `read` calls move 0.53 GiB while the weights are 13.5 GiB: the weights do not pass through the four traced syscalls, so the kernel-side times below are time spent in those syscalls, not disk I/O, and the post cannot say how much of cold start is the disk. No capture recorded "eighteen seconds"; the load time recorded for a phase A capture of this model is 11.73 s. The 1.5x scaling compares a 32B on an A100 with a 7B on an A10. The tool, the tables as time inside the traced calls, and the single 1.29 s launch stand. The sections that depend on the claim will be rewritten; the corrected findings are in the [probe's README](https://github.com/MicheleCampi/vllm-coldstart-probe#readme).
 
 A vLLM server loading Mistral-7B takes about eighteen seconds before it answers the first request. The model is 14 GB on disk. The obvious assumption — the one I started with — is that those eighteen seconds are mostly spent reading 14 GB off the disk.
 

@@ -59,11 +59,11 @@ I quote the band rather than a rounded single figure on purpose. The claim is "t
 
 Call the policy P1: release the GPU on any tool segment longer than the price of getting it back. Saving is `Σ(d − C)` over segments with duration `d > C`, where `C` is the re-entry cost.
 
-`C` is not a guess. An [earlier eBPF probe](https://github.com/MicheleCampi/vllm-coldstart-probe) measured vLLM cold start at roughly 18 seconds on this class of hardware, decomposed far enough to know that kernel I/O is only ~7% of it and the rest is GPU warm-up. There is a separate finding that the same start can take 27s or 96s depending on conditions I have localised but not root-caused, so 18s is the optimistic end.
+`C` is not a guess. In the [earlier eBPF probe](https://github.com/MicheleCampi/vllm-coldstart-probe)'s captures, with vLLM in eager mode and a cold page cache, constructing the engine for a 7B model on an A10 took 11.7 to 19.0 s depending on the checkpoint ([CAPTURES.md](https://github.com/MicheleCampi/vllm-coldstart-probe/blob/main/analysis/CAPTURES.md)). The runs used C = 18 s; P1 is zero at 11.7 s, the low end, and so across the interval. A separate inferscope run, with CUDA graphs on, logged engine init at 27.1 s and 95.7 s with the same model, flags and host, localised but not root-caused.
 
 The longest tool segment anywhere in the sweep is 5.0 seconds.
 
-**P1 saves 0.000s on every one of the fifteen cells.** Not "a small amount". Zero, by construction: no segment in the interval the literature reports comes within a third of repaying an 18-second re-entry. Break-even would sit somewhere past 18 seconds per tool call, which is outside the published range of agentic tool latencies entirely.
+**P1 saves 0.000s on every one of the fifteen cells.** Not "a small amount". Zero, by construction: no segment in the interval the literature reports comes within half of repaying even an 11.7-second re-entry. Break-even would sit somewhere past 11.7 seconds per tool call, which is outside the published range of agentic tool latencies entirely.
 
 The domain matters and travels with the claim: this holds for single-tenant serving billed at hourly granularity. If the freed GPU immediately serves something else, and if your billing granularity is fine enough to notice, the arithmetic changes. Neither is true of a rented A10.
 
@@ -108,7 +108,7 @@ The generating/waiting split the tool prints is *not* affected — it is window-
 
 **The packing bound has not been tested against a running engine.** It says what a replica could host under non-interference. Whether the idle windows actually get filled is a different experiment, [now designed with its falsification criterion stated in advance](https://github.com/MicheleCampi/vllm-coldstart-operator/blob/main/docs/adr/0010-a-measured-concurrency-bound.md) — the prediction being that N concurrent trajectories should show a time-averaged `num_requests_running` of `N × (1 − f_nongen)` rather than N. That runs in September.
 
-**The re-entry price is one measurement with known variance.** ~18s on this hardware class, with a localised-but-not-root-caused case where the same start took 96s. P1 = 0 gets *more* robust as C grows, so the uncertainty is on the favourable side of the claim — but it is uncertainty.
+**The re-entry price is a measured interval, not this workload's.** 11.7 to 19.0 s in eager mode on this hardware class (the runs used 18 s), with a localised-but-not-root-caused case where an engine init with CUDA graphs took 95.7 s. P1 = 0 gets *more* robust as C grows, so the uncertainty is on the favourable side of the claim — but it is uncertainty.
 
 ## Reproducing the numbers
 
