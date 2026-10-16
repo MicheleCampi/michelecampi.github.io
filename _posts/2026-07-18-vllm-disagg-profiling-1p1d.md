@@ -7,6 +7,8 @@ categories: observability systems-engineering llm-inference
 tags: rust llm profiling observability gpu h100 inferscope vllm disaggregation
 ---
 
+> **Correction, 2026-10-16.** Each arm × regime cell ran once, so none of the figures below has a variance estimate; this post did not say so. It also called the per-device ratio "clean and comparable": both devices share the sampling window, so the ratio is less exposed than absolute means, but the idle tail still pulls it toward the idle ratio, by an amount that depends on how much of the window the benchmark filled (64–73% for the disaggregated runs). Both points are now in the text, and the [experiment's README](https://github.com/MicheleCampi/disagg-experiment#what-these-numbers-rest-on) gives each run's window.
+
 Disaggregated serving is the direction the industry is moving: split the compute-bound prefill phase from the memory-bound decode phase onto separate GPUs, so each can scale on its own. NVIDIA Dynamo, vLLM's disaggregation support, Mooncake — the premise is sound at cluster scale. But most of the writing about it *is* about clusters: dozens of GPUs, heterogeneous pools, cross-node KV transfer over InfiniBand.
 
 I wanted to know something narrower and more concrete. On the smallest setup where disaggregation is even possible — one node, two GPUs — what does it actually cost, and what does it actually buy? And can I see the answer from the outside, at the client, or do I have to look inside, at each device?
@@ -34,7 +36,7 @@ A single number lies by omission, so I measured three:
 2. **Per-device GPU**, with [inferscope](https://github.com/MicheleCampi/inferscope) in `--sample-only --gpu` mode at 50 ms — utilisation, power, memory, *per device*, for the lifetime of the run. What the hardware is doing.
 3. **The gap between them** — which is where the story turned out to live.
 
-One honest caveat about the per-device numbers, because it changes how you should read them. inferscope sampled over a window deliberately longer than each benchmark (sampling ran 90–300 s; the benchmarks themselves ran 58–109 s). So *absolute mean power is diluted by idle-tail time and is not comparable across runs of different lengths.* I therefore don't lean on cross-run absolute means. What is clean and comparable — and what I report — is the **per-device ratio within a single run** and the **peak power**.
+One honest caveat about the per-device numbers, because it changes how you should read them. inferscope sampled over a window deliberately longer than each benchmark (sampling ran 90–300 s; the benchmarks themselves ran 58–109 s). So *absolute mean power is diluted by idle-tail time and is not comparable across runs of different lengths.* I therefore don't lean on cross-run absolute means. What I report instead is the **per-device ratio within a single run** and the **peak power**. The ratio is less exposed, because both devices share the window, but the idle tail still pulls it toward the idle ratio; the disaggregated benchmarks filled 64–73% of their windows.
 
 ## Client results
 
@@ -70,7 +72,7 @@ GPU0 is the prefiller, GPU1 the decoder (in the aggregated arm both run tensor-p
 
 The aggregated arm is perfectly symmetric: in every regime the two GPUs draw within a fraction of a percent of each other — 1.00× at the mean and near the peak alike. That is the signature of tensor parallelism: both GPUs do the same work in lockstep.
 
-The disaggregated arm is asymmetric, and the asymmetry grows **monotonically with the decode share** of the workload: 1.22× → 2.48× → 3.66×. At the decode-heavy extreme the picture is stark — the prefiller sits at **1% utilisation and 127 W, essentially idle**, while the decoder runs at 70% and 466 W mean, peaking at **695 W**, within a few watts of the card's 700 W limit. One H100 pinned to the wall; the other parked.
+The disaggregated arm is asymmetric, and the asymmetry grows **monotonically with the decode share** of the workload: 1.22× → 2.48× → 3.66×. At the decode-heavy extreme the picture is stark — the prefiller sits at **1% utilisation and 127 W, essentially idle**, while the decoder runs at 70% and 466 W mean, over a window the benchmark filled for 73.0% (so both are lower than while it ran), peaking at **695 W**, within a few watts of the card's 700 W limit. One H100 pinned to the wall; the other parked.
 
 ## The finding
 
@@ -86,6 +88,7 @@ That's the sentence I keep: the cost is visible from the client; the benefit —
 
 I want to be precise about what this does and doesn't show, because it would be easy to over-read.
 
+- **One run per cell.** Each arm × regime combination ran once, so none of these numbers has a variance estimate; the monotonic 1.22× → 2.48× → 3.66× rests on three single runs.
 - **This is one node, two GPUs, one 8B model** — the smallest disaggregation topology that exists. Nothing here argues against disaggregation at the scale it's designed for: xPyD across many nodes, heterogeneous hardware, KV over a fast interconnect. The monotonic asymmetry curve is, if anything, the argument *for* that scale — the 3.66× stranding at 1P1D is exactly what independent pool-scaling exists to absorb.
 - **KV transfer here is LMCache/NIXL on a single node.** Cross-node transfer characteristics will differ.
 - **Request rate is fixed at 3.6 and the dataset is random.** A production trace with prefix reuse would shift the prefill economics.
