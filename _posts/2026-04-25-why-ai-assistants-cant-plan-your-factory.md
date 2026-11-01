@@ -98,7 +98,7 @@ Here's what the AI's local reconstruction was missing, and what your factory wil
 
 1. **Reproducibility.** The AI's solver runs in a sandbox that's recreated each session. No two runs are identical environments. Production scheduling needs runs that are byte-identical given the same inputs, for audit and rollback.
 
-2. **Custom logic.** OptimEngine's v9 solver has nine years of hand-tuning for manufacturing scenarios — sequence-dependent setup times, multi-window availability, yield-rate filtering, four optimization objectives, four uncertainty modes. The AI improvised "a reasonable FJSP" — generic, but missing every detail that makes a real shop's plans actually executable.
+2. **Custom logic.** OptimEngine's v9 solver encodes eight years of shop-floor experience in manufacturing scenarios — sequence-dependent setup times, multi-window availability, yield-rate filtering, four optimization objectives, four uncertainty modes. The AI improvised "a reasonable FJSP" — generic, but missing every detail that makes a real shop's plans actually executable.
 
 3. **Performance at scale.** AI sandboxes run for one conversation. They don't run 24/7 with SLAs, can't be called by automated agents at 1000 requests per hour, don't return responses in <2 seconds under load. Your factory's MES integration needs an actual API endpoint with uptime guarantees, not a chat tab.
 
