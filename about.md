@@ -5,7 +5,7 @@ permalink: /about/
 ---
 I'm Michele Campi. I build the platforms that serve LLM inference — Kubernetes operators in Rust, Terraform→GitOps on GKE and AWS EKS, observability — so that a GPU fleet places, recovers and reports on itself rather than being driven by hand. The inference layer is where I've gone deepest: profiling, serving, energy, and what a workload actually costs.
 
-I came to this from an unusual direction. I spent nine years in industrial operations in Italy — production scheduling, cost analysis, margin per machine-hour, the unglamorous economics of how mid-market companies actually make money. That work was quantitative and systems-minded, but it wasn't software. Over the last two years I closed that gap: I learned to build the systems, not just analyse them.
+I came to this from an unusual direction. I spent eight years in industrial operations in Italy — production scheduling, cost analysis, margin per machine-hour, the unglamorous economics of how mid-market companies actually make money. That work was quantitative and systems-minded, but it wasn't software. Over the last two years I closed that gap: I learned to build the systems, not just analyse them.
 
 ## The question I keep asking
 
