@@ -2,9 +2,9 @@
 title: Michele Campi
 email: michele.campi@outlook.com
 description: >-
-  AI Infrastructure Engineer — Rust, Kubernetes operators, IaC/GitOps,
-  observability, with depth in LLM inference. Notes on building and
-  measuring infrastructure that's reproducible and validated on real GPUs.
+  Cloud Infrastructure Engineer · AI/GPU workloads · cost & performance,
+  measured. AWS and GKE, Terraform/GitOps, Rust operators, LLM inference.
+  Notes on infrastructure that is reproducible and validated on real GPUs.
 baseurl: ""
 url: "https://michelecampi.github.io"
 lang: en-US
