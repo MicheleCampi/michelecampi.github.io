@@ -2,9 +2,9 @@
 title: Michele Campi
 email: michele.campi@outlook.com
 description: >-
-  Cloud Infrastructure Engineer · AI/GPU workloads · cost & performance,
-  measured. AWS and GKE, Terraform/GitOps, Rust operators, LLM inference.
-  Notes on infrastructure that is reproducible and validated on real GPUs.
+  Platform Engineer · Kubernetes & GPU inference · FinOps. AWS and GKE,
+  Terraform/GitOps, Rust operators, LLM inference; AI-native, human in the
+  loop. Notes on infrastructure that is reproducible and validated on real GPUs.
 baseurl: ""
 url: "https://michelecampi.github.io"
 lang: en-US
